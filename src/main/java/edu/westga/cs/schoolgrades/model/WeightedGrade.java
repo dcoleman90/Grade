@@ -3,7 +3,7 @@ package edu.westga.cs.schoolgrades.model;
 /**
  * Decorator for {@link Grade} objects that applies a multiplicative weight.
  * 
- * @author lewisb
+ * @author lewis b
  *
  */
 public class WeightedGrade implements Grade {
