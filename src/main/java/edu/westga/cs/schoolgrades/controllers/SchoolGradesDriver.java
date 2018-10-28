@@ -1,31 +1,35 @@
 package edu.westga.cs.schoolgrades.controllers;
 
-import edu.westga.cs.schoolgrades.views.GUIController;
+import java.net.URL;
+
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class SchoolGradesDriver extends Application {
-	@Override
-	public void start(Stage primaryStage) {
-		GUIController grades = new GUIController();
-		BorderPane pane = new BorderPane();
-		pane.setCenter(grades);
-		Scene display = new Scene(pane, 300, 250);
-		primaryStage.setTitle("SchoolGrade");
-		primaryStage.setScene(display);
-		primaryStage.show();
 
+	private static final String GUI_RESOURCE = "edu.westga.cs.schoolgrades.views.GUISchoolGrades.fxml";
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+
+	//	FXMLLoader loader = new FXMLLoader(getClass().getResource("edu.westga.cs.schoolgrades.views.GUISchoolGrades.fxml"));
+		Parent root = (Parent)FXMLLoader.load(SchoolGradesDriver.class.getResource("edu.westga.cs.schoolgrades.views.GUISchoolGrades.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
 	}
 
 	/**
-	 * This is the main method which launches the graphic
+	 * Start point for the application.
 	 * 
 	 * @param args
-	 *            is the argument
+	 *            not used
 	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 }

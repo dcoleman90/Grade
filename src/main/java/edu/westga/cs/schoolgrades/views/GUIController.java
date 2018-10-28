@@ -28,6 +28,7 @@ public class GUIController extends GridPane {
 	private ObservableList<Double> homework;
 	private ObservableList<Double> exam;
 	
+	public void initialize() {}
 	
 	public GUIController() {
 		this.quiz =  FXCollections.observableArrayList();
