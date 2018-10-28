@@ -6,10 +6,22 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tooltip;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 
-public class SchoolGradeGUI extends GridPane {
+
+public class GUIController extends GridPane {
+	@FXML
 	private ListView<Double> lvQuiz;
+	@FXML
 	private ListView<Double> lvHomework;
+	@FXML
 	private ListView<Double> lvExam;
 	
 	private ObservableList<Double> quiz;
@@ -17,7 +29,7 @@ public class SchoolGradeGUI extends GridPane {
 	private ObservableList<Double> exam;
 	
 	
-	public SchoolGradeGUI() {
+	public GUIController() {
 		this.quiz =  FXCollections.observableArrayList();
 		this.homework =  FXCollections.observableArrayList();
 		this.exam =  FXCollections.observableArrayList();
@@ -41,9 +53,13 @@ public class SchoolGradeGUI extends GridPane {
 	}
 	
 	private void buildQuiz() {
-		this.lvQuiz.setItems(quiz);
+		this.lvQuiz.setItems(this.quiz);
 		this.lvQuiz.setTooltip(new Tooltip("Quizes"));
+		
+	//	this.quiz.addListener(new ListChangeListener<Item>);
 		
 		this.add(lvQuiz, 0, 0);
 	}
+	
+	
 }
