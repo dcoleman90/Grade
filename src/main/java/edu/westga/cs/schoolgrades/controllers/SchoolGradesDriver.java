@@ -1,14 +1,31 @@
 package edu.westga.cs.schoolgrades.controllers;
 
-public class SchoolGradesDriver {
+import edu.westga.cs.schoolgrades.views.SchoolGradeGUI;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
-	/**
-	 * This is the driver for the SchoolGrades project
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		//Needs to call/run something
+public class SchoolGradesDriver extends Application {
+	@Override
+	public void start(Stage primaryStage) {
+		SchoolGradeGUI grades = new SchoolGradeGUI();
+		BorderPane pane = new BorderPane();
+		pane.setCenter(grades);
+		Scene display = new Scene(pane, 300, 250);
+		primaryStage.setTitle("SchoolGrade");
+		primaryStage.setScene(display);
+		primaryStage.show();
 
 	}
 
+	/**
+	 * This is the main method which launches the graphic
+	 * 
+	 * @param args
+	 *            is the argument
+	 */
+	public static void main(String[] args) {
+		launch(args);
+	}
 }

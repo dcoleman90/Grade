@@ -1,5 +1,10 @@
 package edu.westga.cs.schoolgrades.views;
 
-public class SchoolGradeGUI {
+import javafx.scene.layout.GridPane;
 
+public class SchoolGradeGUI extends GridPane {
+
+	public SchoolGradeGUI() {
+		
+	}
 }
