@@ -51,11 +51,22 @@ public class GUIController extends GridPane {
 		this.lvHomework.setItems(this.homework);
 	}
 
-	@FXML
+	
 	private void addQuiz(Grade gradeAdded) {
 		this.quiz.add(gradeAdded.getValue());
 		this.lvQuiz.setItems(this.quiz);
 	}	
+	
+	
+	private void addExam(Grade gradeAdded) {
+		this.exam.add(gradeAdded.getValue());
+		this.lvExam.setItems(this.exam);
+	}
+	
+	private void addHomework(Grade gradeAdded) {
+		this.homework.add(gradeAdded.getValue());
+		this.lvHomework.setItems(this.homework);
+	}
 
 	@FXML
 	private void addQuizButton() {
@@ -74,6 +85,43 @@ public class GUIController extends GridPane {
 			}
 		}
 	}
+	
+	@FXML
+	private void addExamButton() {
+		double ExamAdded;
+		TextInputDialog addExam = new TextInputDialog("Exam Grade in numeric form");
+		addExam.setTitle("Add Exam result");
+		addExam.setHeaderText("Please insert a Exam Grade result");
+		addExam.setContentText("Please enter your value here");
+		Optional<String> result = addExam.showAndWait();
+		if (result != null) {
+			ExamAdded = this.getUserSelectedDouble(result.get());
+			if (ExamAdded < 0) {
+				this.incorrectValueAlert();
+			} else {
+				this.addExam(this.addNewGrade(ExamAdded));
+			}
+		}
+	}
+	
+	@FXML
+	private void addHomeworkButton() {
+		double HomeworkAdded;
+		TextInputDialog addHomework = new TextInputDialog("Homework Grade in numeric form");
+		addHomework.setTitle("Add Homework result");
+		addHomework.setHeaderText("Please insert a Homework Grade result");
+		addHomework.setContentText("Please enter your value here");
+		Optional<String> result = addHomework.showAndWait();
+		if (result != null) {
+			HomeworkAdded = this.getUserSelectedDouble(result.get());
+			if (HomeworkAdded < 0) {
+				this.incorrectValueAlert();
+			} else {
+				this.addHomework(this.addNewGrade(HomeworkAdded));
+			}
+		}
+	}
+	
 
 	private SimpleGrade addNewGrade(Double gradeAdded) {
 		SimpleGrade grade = new SimpleGrade(gradeAdded);
