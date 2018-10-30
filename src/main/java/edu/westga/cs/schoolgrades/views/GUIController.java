@@ -6,6 +6,7 @@ import javafx.util.Callback;
 import java.util.Optional;
 
 import edu.westga.cs.schoolgrades.model.Grade;
+import edu.westga.cs.schoolgrades.model.SimpleGrade;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -44,7 +45,6 @@ public class GUIController extends GridPane {
 		this.lvExam = new ListView<Double>();
 		this.lvHomework = new ListView<Double>();
 		this.lvQuiz = new ListView<Double>();
-		this.lvQuiz.setEditable(true);
 
 		this.lvQuiz.setItems(this.quiz);
 		this.lvExam.setItems(this.exam);
@@ -52,16 +52,14 @@ public class GUIController extends GridPane {
 	}
 
 	@FXML
-	private void addQuiz(double quizAdded) {
-		this.quiz.add(quizAdded);
+	private void addQuiz(Grade gradeAdded) {
+		this.quiz.add(gradeAdded.getValue());
 		this.lvQuiz.setItems(this.quiz);
-		this.lvQuiz.setEditable(true);
-	}
+	}	
 
 	@FXML
 	private void addQuizButton() {
 		double quizAdded;
-
 		TextInputDialog addQuiz = new TextInputDialog("Quiz Grade in numeric form");
 		addQuiz.setTitle("Add Quiz result");
 		addQuiz.setHeaderText("Please insert a Quiz Grade result");
@@ -72,11 +70,16 @@ public class GUIController extends GridPane {
 			if (quizAdded < 0) {
 				this.incorrectValueAlert();
 			} else {
-				this.addQuiz(quizAdded);
+				this.addQuiz(this.addNewGrade(quizAdded));
 			}
 		}
 	}
 
+	private SimpleGrade addNewGrade(Double gradeAdded) {
+		SimpleGrade grade = new SimpleGrade(gradeAdded);
+		return grade;
+	}
+	
 	private double getUserSelectedDouble(String newStartingValue) {
 		double userEnteredValue = -5;
 		try {
@@ -92,7 +95,6 @@ public class GUIController extends GridPane {
 		alert.setTitle("Warning Incorrect Value");
 		alert.setHeaderText("All Added Grades must be in numeric form");
 		alert.setContentText("Values cannot be negitive numbers");
-
 		alert.showAndWait();
 	}
 
