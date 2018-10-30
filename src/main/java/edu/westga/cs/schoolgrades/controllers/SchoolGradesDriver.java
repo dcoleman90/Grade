@@ -10,26 +10,27 @@ import javafx.stage.Stage;
 
 public class SchoolGradesDriver extends Application {
 
-	private static final String GUI_RESOURCE = "edu.westga.cs.schoolgrades.views.GUISchoolGrades.fxml";
+	private static final String GUI_RESOURCE = "edu/westga/cs/schoolgrades/views/GradesGUI.fxml";
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        URL resource = classLoader.getResource(SchoolGradesDriver.GUI_RESOURCE);
+        FXMLLoader loader = new FXMLLoader(resource);
+        Parent root = (Parent) loader.load();
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Grades Worksheet");
+        primaryStage.show();
+    }
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-
-	//	FXMLLoader loader = new FXMLLoader(getClass().getResource("edu.westga.cs.schoolgrades.views.GUISchoolGrades.fxml"));
-		Parent root = (Parent)FXMLLoader.load(SchoolGradesDriver.class.getResource("edu.westga.cs.schoolgrades.views.GUISchoolGrades.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-	}
-
-	/**
-	 * Start point for the application.
-	 * 
-	 * @param args
-	 *            not used
-	 */
-	public static void main(String[] args) {
-		launch(args);
-	}
+    /**
+     * Start point for the application.
+     * 
+     * @param args not used
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
 
 }
+

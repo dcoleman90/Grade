@@ -23,13 +23,14 @@ public class GUIController extends GridPane {
 	private ListView<Double> lvHomework;
 	@FXML
 	private ListView<Double> lvExam;
-	
+	@FXML
 	private ObservableList<Double> quiz;
+	@FXML
 	private ObservableList<Double> homework;
+	@FXML
 	private ObservableList<Double> exam;
 	
-	public void initialize() {}
-	
+
 	public GUIController() {
 		this.quiz =  FXCollections.observableArrayList();
 		this.homework =  FXCollections.observableArrayList();
@@ -38,29 +39,5 @@ public class GUIController extends GridPane {
 		this.lvExam = new ListView<Double>();
 		this.lvHomework = new ListView<Double>();
 		this.lvQuiz = new ListView<Double>();
-		
-		this.buildSchoolGrade();
 	}
-	
-	public void buildSchoolGrade() {
-		this.buildGaps();
-		this.buildQuiz();
-	}
-	
-	private void buildGaps() {
-		this.setHgap(10);
-		this.setVgap(10);
-		this.setPadding(new Insets(5, 5, 5, 5));
-	}
-	
-	private void buildQuiz() {
-		this.lvQuiz.setItems(this.quiz);
-		this.lvQuiz.setTooltip(new Tooltip("Quizes"));
-		
-	//	this.quiz.addListener(new ListChangeListener<Item>);
-		
-		this.add(lvQuiz, 0, 0);
-	}
-	
-	
 }
