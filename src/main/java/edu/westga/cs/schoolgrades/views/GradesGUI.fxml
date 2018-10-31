@@ -33,9 +33,18 @@
          <GridPane.margin>
             <Insets left="15.0" />
          </GridPane.margin></Button>
-      <ListView fx:id="lvHomework" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <ListView fx:id="lvQuiz" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <ListView fx:id="lvExam" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+      <ListView fx:id="lvHomework" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets bottom="15.0" top="15.0" />
+         </GridPane.margin></ListView>
+      <ListView fx:id="lvQuiz" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </GridPane.margin></ListView>
+      <ListView fx:id="lvExam" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </GridPane.margin></ListView>
       <Button mnemonicParsing="false" onAction="#addHomeworkButton" text="Add Homework" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="15.0" />
@@ -47,9 +56,9 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="examTotal" maxHeight="200.0">
+            <TextField fx:id="examTotal" editable="false" maxHeight="200.0">
                <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
+                  <Insets left="15.0" right="15.0" />
                </VBox.margin>
             </TextField>
          </children>
@@ -61,7 +70,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="homeworkTotal">
+            <TextField fx:id="homeworkTotal" editable="false">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
@@ -75,9 +84,9 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="quizTotal">
+            <TextField fx:id="quizTotal" editable="false">
                <VBox.margin>
-                  <Insets left="10.0" right="10.0" />
+                  <Insets left="15.0" right="15.0" />
                </VBox.margin>
             </TextField>
          </children>
@@ -105,9 +114,9 @@
             </Label>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <TextField fx:id="total" maxWidth="100.0" prefHeight="25.0" prefWidth="50.0">
+                  <TextField fx:id="total" editable="false" maxWidth="100.0" prefHeight="25.0" prefWidth="50.0">
                      <VBox.margin>
-                        <Insets left="25.0" />
+                        <Insets left="30.0" />
                      </VBox.margin>
                   </TextField>
                </children>

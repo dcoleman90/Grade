@@ -173,6 +173,7 @@ public class GUIController extends GridPane {
 		this.finalGrade.add(weightExam);
 		this.total.setText("" + this.finalGrade.getValue());
 	}
+
 	
 	private SimpleGrade addNewGrade(Double gradeAdded) {
 		SimpleGrade grade = new SimpleGrade(gradeAdded);
