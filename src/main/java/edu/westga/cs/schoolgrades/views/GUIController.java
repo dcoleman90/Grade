@@ -3,10 +3,17 @@ package edu.westga.cs.schoolgrades.views;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 
+import javafx.scene.control.TextField;
 import java.util.Optional;
 
+
+
+import edu.westga.cs.schoolgrades.model.AverageOfGradesStrategy;
+import edu.westga.cs.schoolgrades.model.CompositeGrade;
 import edu.westga.cs.schoolgrades.model.Grade;
 import edu.westga.cs.schoolgrades.model.SimpleGrade;
+import edu.westga.cs.schoolgrades.model.SumOfGradesStrategy;
+import edu.westga.cs.schoolgrades.model.WeightedGrade;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -36,8 +43,24 @@ public class GUIController extends GridPane {
 	private ObservableList<Double> homework;
 	@FXML
 	private ObservableList<Double> exam;
-
+	@FXML
+	private TextField quizTotal;
+	@FXML
+	private TextField homeworkTotal;
+	@FXML
+	private TextField examTotal;
+	@FXML
+	private TextField total;
+	private CompositeGrade everyQuiz;
+	private CompositeGrade everyHomework;
+	private CompositeGrade everyExam;
+	private CompositeGrade finalGrade;
+	private AverageOfGradesStrategy averageStrat;
+	private SumOfGradesStrategy sumStrategy;
+	
 	public GUIController() {
+		this.averageStrat = new AverageOfGradesStrategy();
+		this.sumStrategy = new SumOfGradesStrategy();
 		this.quiz = FXCollections.observableArrayList();
 		this.homework = FXCollections.observableArrayList();
 		this.exam = FXCollections.observableArrayList();
@@ -45,7 +68,17 @@ public class GUIController extends GridPane {
 		this.lvExam = new ListView<Double>();
 		this.lvHomework = new ListView<Double>();
 		this.lvQuiz = new ListView<Double>();
-
+		
+		this.homeworkTotal = new TextField();
+		this.examTotal = new TextField();
+		this.quizTotal = new TextField();
+		this.total = new TextField();
+		
+		this.everyQuiz = new CompositeGrade(sumStrategy);
+		this.everyExam = new CompositeGrade(averageStrat);
+		this.everyHomework = new CompositeGrade(averageStrat);
+		this.finalGrade = new CompositeGrade(averageStrat);
+		
 		this.lvQuiz.setItems(this.quiz);
 		this.lvExam.setItems(this.exam);
 		this.lvHomework.setItems(this.homework);
@@ -55,17 +88,24 @@ public class GUIController extends GridPane {
 	private void addQuiz(Grade gradeAdded) {
 		this.quiz.add(gradeAdded.getValue());
 		this.lvQuiz.setItems(this.quiz);
+		this.everyQuiz.add(gradeAdded);
+		this.quizTotal.setText("" + this.everyQuiz.getValue());
 	}	
 	
 	
 	private void addExam(Grade gradeAdded) {
 		this.exam.add(gradeAdded.getValue());
 		this.lvExam.setItems(this.exam);
+		this.everyExam.add(gradeAdded);
+		String everyExamString = "" + this.everyExam.getValue();
+		this.examTotal.setText("" + this.everyExam.getValue());
 	}
 	
 	private void addHomework(Grade gradeAdded) {
 		this.homework.add(gradeAdded.getValue());
 		this.lvHomework.setItems(this.homework);
+		this.everyHomework.add(gradeAdded);
+		this.homeworkTotal.setText( "" + this.everyHomework.getValue());
 	}
 
 	@FXML
@@ -122,7 +162,18 @@ public class GUIController extends GridPane {
 		}
 	}
 	
-
+	@FXML
+	private void setFinalGrade() {
+		this.finalGrade = new CompositeGrade(this.sumStrategy);
+		WeightedGrade weightQuiz = new WeightedGrade(this.everyQuiz, 0.2);
+		WeightedGrade weightHW = new WeightedGrade(this.everyHomework, 0.3);
+		WeightedGrade weightExam = new WeightedGrade(this.everyExam, 0.5);
+		this.finalGrade.add(weightQuiz);
+		this.finalGrade.add(weightHW);
+		this.finalGrade.add(weightExam);
+		this.total.setText("" + this.finalGrade.getValue());
+	}
+	
 	private SimpleGrade addNewGrade(Double gradeAdded) {
 		SimpleGrade grade = new SimpleGrade(gradeAdded);
 		return grade;
@@ -145,5 +196,4 @@ public class GUIController extends GridPane {
 		alert.setContentText("Values cannot be negitive numbers");
 		alert.showAndWait();
 	}
-
 }

@@ -21,6 +21,7 @@
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />
+      <RowConstraints />
    </rowConstraints>
    <children>
       <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addQuizButton" onMouseClicked="#addQuizButton" text="Add Quiz" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3">
@@ -46,7 +47,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField maxHeight="200.0">
+            <TextField fx:id="examTotal" maxHeight="200.0">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
@@ -60,7 +61,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField>
+            <TextField fx:id="homeworkTotal">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
@@ -74,12 +75,44 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField>
+            <TextField fx:id="quizTotal">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </TextField>
          </children>
       </VBox>
+      <GridPane GridPane.columnSpan="3" GridPane.rowIndex="4">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button mnemonicParsing="false" onAction="#setFinalGrade" text="Recalculate Total" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Button>
+            <Label text="Total Grade">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+               <children>
+                  <TextField fx:id="total" maxWidth="100.0" prefHeight="25.0" prefWidth="50.0">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin>
+                  </TextField>
+               </children>
+            </VBox>
+         </children>
+      </GridPane>
    </children>
 </GridPane>
