@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -28,27 +29,45 @@
          <GridPane.margin>
             <Insets left="15.0" />
          </GridPane.margin>
+         <tooltip>
+            <Tooltip text="This button allows the user to add a Quiz value" />
+         </tooltip>
       </Button>
       <Button mnemonicParsing="false" onAction="#addExamButton" text="Add Exam" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="15.0" />
-         </GridPane.margin></Button>
-      <ListView fx:id="lvHomework" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         </GridPane.margin>
+         <tooltip>
+            <Tooltip text="This button allows the user to add an Exam value" />
+         </tooltip></Button>
+      <ListView fx:id="lvHomework" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="15.0" top="15.0" />
-         </GridPane.margin></ListView>
-      <ListView fx:id="lvQuiz" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+         </GridPane.margin>
+         <tooltip>
+            <Tooltip text="This field shows all the Homework values" />
+         </tooltip></ListView>
+      <ListView fx:id="lvQuiz" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </GridPane.margin></ListView>
-      <ListView fx:id="lvExam" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+         </GridPane.margin>
+         <tooltip>
+            <Tooltip text="This field shows all the Quiz values" />
+         </tooltip></ListView>
+      <ListView fx:id="lvExam" accessibleText="This field shows the Exam values" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-         </GridPane.margin></ListView>
+         </GridPane.margin>
+         <tooltip>
+            <Tooltip text="This field shows all the Exam values" />
+         </tooltip></ListView>
       <Button mnemonicParsing="false" onAction="#addHomeworkButton" text="Add Homework" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="15.0" />
-         </GridPane.margin></Button>
+         </GridPane.margin>
+         <tooltip>
+            <Tooltip text="This button allows the user to add a Homework value" />
+         </tooltip></Button>
       <VBox maxHeight="100.0" prefHeight="50.0" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
          <children>
             <Label text="Exam Total">
@@ -60,6 +79,9 @@
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
+               <tooltip>
+                  <Tooltip text="This field shows the average Exam value" />
+               </tooltip>
             </TextField>
          </children>
       </VBox>
@@ -74,6 +96,9 @@
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
+               <tooltip>
+                  <Tooltip text="This field shows the average Homework values" />
+               </tooltip>
             </TextField>
          </children>
       </VBox>
@@ -88,6 +113,9 @@
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
+               <tooltip>
+                  <Tooltip text="This field shows the Quiz total - all Quiz values are Added together" />
+               </tooltip>
             </TextField>
          </children>
       </VBox>
@@ -106,6 +134,9 @@
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
+               <tooltip>
+                  <Tooltip text="This button recalculates the final grade" />
+               </tooltip>
             </Button>
             <Label text="Total Grade">
                <GridPane.margin>
@@ -118,6 +149,9 @@
                      <VBox.margin>
                         <Insets left="30.0" />
                      </VBox.margin>
+                     <tooltip>
+                        <Tooltip text="This field shows the total grade" />
+                     </tooltip>
                   </TextField>
                </children>
             </VBox>

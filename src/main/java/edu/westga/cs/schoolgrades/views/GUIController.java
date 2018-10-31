@@ -82,6 +82,8 @@ public class GUIController extends GridPane {
 		this.lvQuiz.setItems(this.quiz);
 		this.lvExam.setItems(this.exam);
 		this.lvHomework.setItems(this.homework);
+		
+		this.setToolTips();
 	}
 
 	
@@ -174,6 +176,16 @@ public class GUIController extends GridPane {
 		this.total.setText("" + this.finalGrade.getValue());
 	}
 
+	@FXML
+	private void setToolTips() {
+		Tooltip listViewExam = new Tooltip("This field shows all the Exam values");
+		Tooltip listViewQuiz = new Tooltip("This field shows all the Quiz values");
+		Tooltip listViewHW = new Tooltip("This field shows all the Homework values");
+		this.lvExam.setTooltip(listViewExam);
+		this.lvQuiz.setTooltip(listViewQuiz);
+		this.lvHomework.setTooltip(listViewHW);
+
+	}
 	
 	private SimpleGrade addNewGrade(Double gradeAdded) {
 		SimpleGrade grade = new SimpleGrade(gradeAdded);
