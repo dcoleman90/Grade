@@ -45,16 +45,16 @@ public class GUIController extends GridPane {
 	@FXML
 	private ObservableList<Double> exam;
 	@FXML
-	private TextField quizTotal;
+	private TextField tf_QuizTotal;
 	@FXML
-	private TextField homeworkTotal;
+	private TextField tf_HomeworkTotal;
 	@FXML
-	private TextField examTotal;
+	private TextField tf_ExamTotal;
 	@FXML
 	private TextField total;
-	private CompositeGrade everyQuiz;
-	private CompositeGrade everyHomework;
-	private CompositeGrade everyExam;
+	private CompositeGrade quizSumTotal;
+	private CompositeGrade HwDropLowAvg;
+	private CompositeGrade examAvgTotal;
 	private CompositeGrade finalGrade;
 	private AverageOfGradesStrategy averageStrat;
 	private SumOfGradesStrategy sumStrategy;
@@ -64,6 +64,7 @@ public class GUIController extends GridPane {
 		this.averageStrat = new AverageOfGradesStrategy();
 		this.sumStrategy = new SumOfGradesStrategy();
 		this.dropAvgStrategy = new DropLowestStrategy(this.averageStrat);
+		
 		this.quiz = FXCollections.observableArrayList();
 		this.homework = FXCollections.observableArrayList();
 		this.exam = FXCollections.observableArrayList();
@@ -72,45 +73,43 @@ public class GUIController extends GridPane {
 		this.lvHomework = new ListView<Double>();
 		this.lvQuiz = new ListView<Double>();
 		
-		this.homeworkTotal = new TextField();
-		this.examTotal = new TextField();
-		this.quizTotal = new TextField();
+		this.tf_HomeworkTotal = new TextField();
+		this.tf_ExamTotal = new TextField();
+		this.tf_QuizTotal = new TextField();
 		this.total = new TextField();
 		
-		this.everyQuiz = new CompositeGrade(sumStrategy);
-		this.everyExam = new CompositeGrade(averageStrat);
-		this.everyHomework = new CompositeGrade(this.dropAvgStrategy);
-		this.finalGrade = new CompositeGrade(averageStrat);
+		this.quizSumTotal = new CompositeGrade(sumStrategy);
+		this.examAvgTotal = new CompositeGrade(averageStrat);
+		this.HwDropLowAvg = new CompositeGrade(this.dropAvgStrategy);
+		this.finalGrade = new CompositeGrade(this.sumStrategy);
 		
 		this.lvQuiz.setItems(this.quiz);
 		this.lvExam.setItems(this.exam);
 		this.lvHomework.setItems(this.homework);
-		
-		this.setToolTips();
 	}
 
 	
 	private void addQuiz(Grade gradeAdded) {
 		this.quiz.add(gradeAdded.getValue());
 		this.lvQuiz.setItems(this.quiz);
-		this.everyQuiz.add(gradeAdded);
-		this.quizTotal.setText("" + this.everyQuiz.getValue());
+		this.quizSumTotal.add(gradeAdded);
+		this.tf_QuizTotal.setText("" + this.quizSumTotal.getValue());
 	}	
 	
 	
 	private void addExam(Grade gradeAdded) {
 		this.exam.add(gradeAdded.getValue());
 		this.lvExam.setItems(this.exam);
-		this.everyExam.add(gradeAdded);
-		String everyExamString = "" + this.everyExam.getValue();
-		this.examTotal.setText("" + this.everyExam.getValue());
+		this.examAvgTotal.add(gradeAdded);
+		String examAvgTotalString = "" + this.examAvgTotal.getValue();
+		this.tf_ExamTotal.setText("" + this.examAvgTotal.getValue());
 	}
 	
 	private void addHomework(Grade gradeAdded) {
 		this.homework.add(gradeAdded.getValue());
 		this.lvHomework.setItems(this.homework);
-		this.everyHomework.add(gradeAdded);
-		this.homeworkTotal.setText( "" + this.everyHomework.getValue());
+		this.HwDropLowAvg.add(gradeAdded);
+		this.tf_HomeworkTotal.setText( "" + this.HwDropLowAvg.getValue());
 	}
 
 	@FXML
@@ -170,26 +169,15 @@ public class GUIController extends GridPane {
 	@FXML
 	private void setFinalGrade() {
 		this.finalGrade = new CompositeGrade(this.sumStrategy);
-		WeightedGrade weightQuiz = new WeightedGrade(this.everyQuiz, 0.2);
-		WeightedGrade weightHW = new WeightedGrade(this.everyHomework, 0.3);
-		WeightedGrade weightExam = new WeightedGrade(this.everyExam, 0.5);
+		WeightedGrade weightQuiz = new WeightedGrade(this.quizSumTotal, 0.2);
+		WeightedGrade weightHW = new WeightedGrade(this.HwDropLowAvg, 0.3);
+		WeightedGrade weightExam = new WeightedGrade(this.examAvgTotal, 0.5);
 		this.finalGrade.add(weightQuiz);
 		this.finalGrade.add(weightHW);
 		this.finalGrade.add(weightExam);
 		this.total.setText("" + this.finalGrade.getValue());
 	}
 
-	@FXML
-	private void setToolTips() {
-		Tooltip listViewExam = new Tooltip("This field shows all the Exam values");
-		Tooltip listViewQuiz = new Tooltip("This field shows all the Quiz values");
-		Tooltip listViewHW = new Tooltip("This field shows all the Homework values");
-		this.lvExam.setTooltip(listViewExam);
-		this.lvQuiz.setTooltip(listViewQuiz);
-		this.lvHomework.setTooltip(listViewHW);
-
-	}
-	
 	private SimpleGrade addNewGrade(Double gradeAdded) {
 		SimpleGrade grade = new SimpleGrade(gradeAdded);
 		return grade;
