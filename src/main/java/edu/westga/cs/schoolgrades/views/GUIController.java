@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import edu.westga.cs.schoolgrades.model.AverageOfGradesStrategy;
 import edu.westga.cs.schoolgrades.model.CompositeGrade;
+import edu.westga.cs.schoolgrades.model.DropLowestStrategy;
 import edu.westga.cs.schoolgrades.model.Grade;
 import edu.westga.cs.schoolgrades.model.SimpleGrade;
 import edu.westga.cs.schoolgrades.model.SumOfGradesStrategy;
@@ -57,10 +58,12 @@ public class GUIController extends GridPane {
 	private CompositeGrade finalGrade;
 	private AverageOfGradesStrategy averageStrat;
 	private SumOfGradesStrategy sumStrategy;
+	private DropLowestStrategy dropAvgStrategy;
 	
 	public GUIController() {
 		this.averageStrat = new AverageOfGradesStrategy();
 		this.sumStrategy = new SumOfGradesStrategy();
+		this.dropAvgStrategy = new DropLowestStrategy(this.averageStrat);
 		this.quiz = FXCollections.observableArrayList();
 		this.homework = FXCollections.observableArrayList();
 		this.exam = FXCollections.observableArrayList();
@@ -76,7 +79,7 @@ public class GUIController extends GridPane {
 		
 		this.everyQuiz = new CompositeGrade(sumStrategy);
 		this.everyExam = new CompositeGrade(averageStrat);
-		this.everyHomework = new CompositeGrade(averageStrat);
+		this.everyHomework = new CompositeGrade(this.dropAvgStrategy);
 		this.finalGrade = new CompositeGrade(averageStrat);
 		
 		this.lvQuiz.setItems(this.quiz);
