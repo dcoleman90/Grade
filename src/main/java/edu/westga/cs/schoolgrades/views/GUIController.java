@@ -176,14 +176,12 @@ public class GUIController extends GridPane {
 		acceptedOL.remove(indexGrade);
 		acceptedOL.size();
 		GradeCalculationStrategy tempStrategy = acceptedGrade.getStrategy();
-		System.out.println(acceptedOL.size() + ":P" + acceptedGrade.getValue() + this.quizSumTotal.getValue() + this.quizSumTotal.toString() + " " +acceptedGrade.toString());
 		if (acceptedGrade == this.quizSumTotal) {
 			this.quizSumTotal = new CompositeGrade(tempStrategy);
 			for (int count = 0; count < acceptedOL.size(); count++) {
 				SimpleGrade temp = new SimpleGrade((Double)acceptedOL.get(count));
 				this.quizSumTotal.add(temp);
 			}
-			System.out.println(removedGrade);
 			this.tf_QuizTotal.setText("" + this.quizSumTotal.getValue());
 		} else if (acceptedGrade == this.examAvgTotal) {
 			this.examAvgTotal = new CompositeGrade(tempStrategy);
@@ -191,7 +189,6 @@ public class GUIController extends GridPane {
 				SimpleGrade temp = new SimpleGrade((Double)acceptedOL.get(count));
 				this.examAvgTotal.add(temp);
 			}
-			System.out.println(removedGrade);
 			this.tf_ExamTotal.setText("" + this.examAvgTotal.getValue());
 		} else if (acceptedGrade == this.HwDropLowAvg) {
 			this.HwDropLowAvg = new CompositeGrade(tempStrategy);
@@ -199,7 +196,6 @@ public class GUIController extends GridPane {
 				SimpleGrade temp = new SimpleGrade((Double)acceptedOL.get(count));
 				this.HwDropLowAvg.add(temp);
 			}
-			System.out.println(removedGrade);
 			this.tf_HomeworkTotal.setText("" + this.HwDropLowAvg.getValue());
 		} 
 		Alert delete = new Alert(AlertType.INFORMATION);
