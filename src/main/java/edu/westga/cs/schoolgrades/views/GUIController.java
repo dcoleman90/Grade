@@ -261,18 +261,18 @@ public class GUIController extends GridPane {
 
 	@FXML
 	private void addHomeworkButton() {
-		double HomeworkAdded;
+		double homeworkAdded;
 		TextInputDialog addHomework = new TextInputDialog("Homework Grade in numeric form");
 		addHomework.setTitle("Add Homework result");
 		addHomework.setHeaderText("Please insert a Homework Grade result");
 		addHomework.setContentText("Please enter your value here");
 		Optional<String> result = addHomework.showAndWait();
 		if (result != null) {
-			HomeworkAdded = this.getUserSelectedDouble(result.get());
-			if (HomeworkAdded < 0) {
+			homeworkAdded = this.getUserSelectedDouble(result.get());
+			if (homeworkAdded < 0) {
 				this.incorrectValueAlert();
 			} else {
-				this.addGrade(this.hoe, this.addNewGrade(quizAdded, this.sumStrategy));
+				this.addGrade(this.homework, this.addNewGrade(homeworkAdded, this.sumStrategy));
 			}
 		}
 	}
