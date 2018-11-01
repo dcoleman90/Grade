@@ -130,14 +130,6 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" onAction="#setFinalGrade" text="Recalculate Total" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-               <tooltip>
-                  <Tooltip text="This button recalculates the final grade" />
-               </tooltip>
-            </Button>
             <Label text="Total Grade">
                <GridPane.margin>
                   <Insets left="10.0" />

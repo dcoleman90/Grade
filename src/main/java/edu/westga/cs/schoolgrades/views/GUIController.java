@@ -167,11 +167,8 @@ public class GUIController extends GridPane {
 	}
 
 	private void updateGrade(ObservableList acceptedOL, CompositeGrade acceptedGrade) {
-		System.out.println(
-				"4 " + acceptedGrade.getValue() + " " + acceptedGrade.toString() + this.quizSumTotal.toString());
 		GradeCalculationStrategy tempStrategy = acceptedGrade.getStrategy();
 		if (acceptedGrade == this.quizSumTotal) {
-			System.out.println("quiz total");
 
 			this.quizSumTotal = new CompositeGrade(tempStrategy);
 			for (int count = 0; count < acceptedOL.size(); count++) {
@@ -213,7 +210,6 @@ public class GUIController extends GridPane {
 			if (quizAdded < 0) {
 				this.incorrectValueAlert();
 			} else {
-				System.out.println("1");
 				this.addGrade(this.quiz, this.addNewGrade(quizAdded, this.sumStrategy));
 			}
 		}
@@ -255,7 +251,6 @@ public class GUIController extends GridPane {
 		}
 	}
 
-	@FXML
 	private void setFinalGrade() {
 		this.finalGrade = new CompositeGrade(this.sumStrategy);
 		WeightedGrade weightQuiz = new WeightedGrade(this.quizSumTotal, 0.2);
