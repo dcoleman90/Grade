@@ -154,27 +154,9 @@ public class GUIController extends GridPane {
 			acceptedOL.set(indexGrade, quizAdded);
 			if (quizAdded < 0) {
 				this.incorrectValueAlert();
-			} else if (acceptedGrade == this.quizSumTotal) {
-				this.quizSumTotal = new CompositeGrade(tempStrategy);
-				for (int count = 0; count < acceptedOL.size(); count++) {
-					SimpleGrade temp = new SimpleGrade((Double) acceptedOL.get(count));
-					this.quizSumTotal.add(temp);
-				}
-				this.tf_QuizTotal.setText("" + this.quizSumTotal.getValue());
-			} else if (acceptedGrade == this.examAvgTotal) {
-				this.examAvgTotal = new CompositeGrade(tempStrategy);
-				for (int count = 0; count < acceptedOL.size(); count++) {
-					SimpleGrade temp = new SimpleGrade((Double) acceptedOL.get(count));
-					this.examAvgTotal.add(temp);
-				}
-				this.tf_ExamTotal.setText("" + this.examAvgTotal.getValue());
-			} else if (acceptedGrade == this.HwDropLowAvg) {
-				this.HwDropLowAvg = new CompositeGrade(tempStrategy);
-				for (int count = 0; count < acceptedOL.size(); count++) {
-					SimpleGrade temp = new SimpleGrade((Double) acceptedOL.get(count));
-					this.HwDropLowAvg.add(temp);
-				}
-				this.tf_HomeworkTotal.setText("" + this.HwDropLowAvg.getValue());
+			} else {
+				this.updateGrade(acceptedOL, acceptedGrade);
+
 			}
 		}
 	}
@@ -182,7 +164,6 @@ public class GUIController extends GridPane {
 	private void deleteGradeLV(ObservableList acceptedOL, int indexGrade, CompositeGrade acceptedGrade) {
 		double removedGrade = (double) acceptedOL.get(indexGrade);
 		acceptedOL.remove(indexGrade);
-		acceptedOL.size();
 		this.updateGrade(acceptedOL, acceptedGrade);
 		Alert delete = new Alert(AlertType.INFORMATION);
 		delete.setTitle("deleted");
@@ -215,6 +196,7 @@ public class GUIController extends GridPane {
 			}
 			this.tf_HomeworkTotal.setText("" + this.HwDropLowAvg.getValue());
 		}
+		this.setFinalGrade();
 	}
 
 	@FXML
