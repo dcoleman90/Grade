@@ -81,6 +81,15 @@ public class GUIController extends GridPane {
 		this.lvHomework.setItems(this.homework);
 	}
 
+	private void addGrade(ObservableList<Double> acceptedOL, CompositeGrade gradeAdded) {
+		if (this.quiz == acceptedOL) { 
+			this.quiz.add(gradeAdded.getValue());
+			System.out.println("3");
+		}
+		acceptedOL.add(gradeAdded.getValue());
+		this.updateGrade(acceptedOL, gradeAdded);
+	}
+	
 	private void addQuiz(Grade gradeAdded) {
 		this.quiz.add(gradeAdded.getValue());
 		this.lvQuiz.setItems(this.quiz);
@@ -173,6 +182,7 @@ public class GUIController extends GridPane {
 	}
 
 	private void updateGrade(ObservableList acceptedOL, CompositeGrade acceptedGrade) {
+		System.out.println("3");
 		GradeCalculationStrategy tempStrategy = acceptedGrade.getStrategy();
 		if (acceptedGrade == this.quizSumTotal) {
 			this.quizSumTotal = new CompositeGrade(tempStrategy);
@@ -212,7 +222,8 @@ public class GUIController extends GridPane {
 			if (quizAdded < 0) {
 				this.incorrectValueAlert();
 			} else {
-				this.addQuiz(this.addNewGrade(quizAdded));
+				System.out.println("1");
+				this.addGrade(this.quiz, this.addNewGrade(quizAdded, this.sumStrategy));
 			}
 		}
 	}
@@ -230,7 +241,7 @@ public class GUIController extends GridPane {
 			if (ExamAdded < 0) {
 				this.incorrectValueAlert();
 			} else {
-				this.addExam(this.addNewGrade(ExamAdded));
+	//			this.addExam(this.addNewGrade(ExamAdded));
 			}
 		}
 	}
@@ -248,7 +259,7 @@ public class GUIController extends GridPane {
 			if (HomeworkAdded < 0) {
 				this.incorrectValueAlert();
 			} else {
-				this.addHomework(this.addNewGrade(HomeworkAdded));
+	//			this.addHomework(this.addNewGrade(HomeworkAdded));
 			}
 		}
 	}
@@ -265,9 +276,12 @@ public class GUIController extends GridPane {
 		this.total.setText("" + this.finalGrade.getValue());
 	}
 
-	private SimpleGrade addNewGrade(Double gradeAdded) {
+	private CompositeGrade addNewGrade(Double gradeAdded, GradeCalculationStrategy strategy) {
 		SimpleGrade grade = new SimpleGrade(gradeAdded);
-		return grade;
+		CompositeGrade composite = new CompositeGrade(strategy);
+		composite.add(grade);
+		System.out.println("2 " + composite.getValue());
+		return composite;
 	}
 
 	private double getUserSelectedDouble(String newStartingValue) {
