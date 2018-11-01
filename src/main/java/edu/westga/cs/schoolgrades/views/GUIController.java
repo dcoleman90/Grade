@@ -82,14 +82,21 @@ public class GUIController extends GridPane {
 	}
 
 	private void addGrade(ObservableList<Double> acceptedOL, CompositeGrade gradeAdded) {
-		if (this.quiz == acceptedOL) { 
+		if (this.quiz == acceptedOL) {
 			this.quiz.add(gradeAdded.getValue());
-			System.out.println("3");
-		}
-		acceptedOL.add(gradeAdded.getValue());
-		this.updateGrade(acceptedOL, gradeAdded);
+			this.quizSumTotal.add(gradeAdded);
+			this.updateGrade(acceptedOL, this.quizSumTotal);
+		} else if (this.exam == acceptedOL) {
+			this.exam.add(gradeAdded.getValue());
+			this.examAvgTotal.add(gradeAdded);
+			this.updateGrade(acceptedOL, this.examAvgTotal);
+		} else if (this.homework == acceptedOL) {
+			this.homework.add(gradeAdded.getValue());
+			this.HwDropLowAvg.add(gradeAdded);
+			this.updateGrade(acceptedOL, this.HwDropLowAvg);
+		} 
 	}
-	
+
 	private void addQuiz(Grade gradeAdded) {
 		this.quiz.add(gradeAdded.getValue());
 		this.lvQuiz.setItems(this.quiz);
@@ -182,9 +189,12 @@ public class GUIController extends GridPane {
 	}
 
 	private void updateGrade(ObservableList acceptedOL, CompositeGrade acceptedGrade) {
-		System.out.println("3");
+		System.out.println(
+				"4 " + acceptedGrade.getValue() + " " + acceptedGrade.toString() + this.quizSumTotal.toString());
 		GradeCalculationStrategy tempStrategy = acceptedGrade.getStrategy();
 		if (acceptedGrade == this.quizSumTotal) {
+			System.out.println("quiz total");
+
 			this.quizSumTotal = new CompositeGrade(tempStrategy);
 			for (int count = 0; count < acceptedOL.size(); count++) {
 				SimpleGrade temp = new SimpleGrade((Double) acceptedOL.get(count));
@@ -206,6 +216,9 @@ public class GUIController extends GridPane {
 			}
 			this.tf_HomeworkTotal.setText("" + this.HwDropLowAvg.getValue());
 		}
+		this.lvQuiz.setItems(this.quiz);
+		this.lvExam.setItems(this.exam);
+		this.lvHomework.setItems(this.homework);
 		this.setFinalGrade();
 	}
 
@@ -230,18 +243,18 @@ public class GUIController extends GridPane {
 
 	@FXML
 	private void addExamButton() {
-		double ExamAdded;
+		double examAdded;
 		TextInputDialog addExam = new TextInputDialog("Exam Grade in numeric form");
 		addExam.setTitle("Add Exam result");
 		addExam.setHeaderText("Please insert a Exam Grade result");
 		addExam.setContentText("Please enter your value here");
 		Optional<String> result = addExam.showAndWait();
 		if (result != null) {
-			ExamAdded = this.getUserSelectedDouble(result.get());
-			if (ExamAdded < 0) {
+			examAdded = this.getUserSelectedDouble(result.get());
+			if (examAdded < 0) {
 				this.incorrectValueAlert();
 			} else {
-	//			this.addExam(this.addNewGrade(ExamAdded));
+				this.addGrade(this.exam, this.addNewGrade(examAdded, this.sumStrategy));
 			}
 		}
 	}
@@ -259,7 +272,7 @@ public class GUIController extends GridPane {
 			if (HomeworkAdded < 0) {
 				this.incorrectValueAlert();
 			} else {
-	//			this.addHomework(this.addNewGrade(HomeworkAdded));
+				this.addGrade(this.hoe, this.addNewGrade(quizAdded, this.sumStrategy));
 			}
 		}
 	}
