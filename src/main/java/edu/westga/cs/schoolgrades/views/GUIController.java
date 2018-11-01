@@ -1,16 +1,10 @@
 package edu.westga.cs.schoolgrades.views;
 
 import javafx.scene.layout.GridPane;
-import javafx.util.Callback;
-
 import javafx.scene.control.TextField;
 
-import java.util.Observable;
 import java.util.Optional;
 
-import javax.swing.event.ChangeEvent;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import edu.westga.cs.schoolgrades.model.AverageOfGradesStrategy;
 import edu.westga.cs.schoolgrades.model.CompositeGrade;
 import edu.westga.cs.schoolgrades.model.DropLowestStrategy;
@@ -21,18 +15,11 @@ import edu.westga.cs.schoolgrades.model.SumOfGradesStrategy;
 import edu.westga.cs.schoolgrades.model.WeightedGrade;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Tooltip;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.TextInputDialog;
 
 public class GUIController extends GridPane {
@@ -56,12 +43,12 @@ public class GUIController extends GridPane {
 	private TextField tf_ExamTotal;
 	@FXML
 	private TextField total;
-	
+
 	private CompositeGrade quizSumTotal;
 	private CompositeGrade HwDropLowAvg;
 	private CompositeGrade examAvgTotal;
 	private CompositeGrade finalGrade;
-	
+
 	private AverageOfGradesStrategy averageStrat;
 	private SumOfGradesStrategy sumStrategy;
 	private DropLowestStrategy dropAvgStrategy;
@@ -116,26 +103,26 @@ public class GUIController extends GridPane {
 	}
 
 	@FXML
-	private void editQuizIndex () {
+	private void editQuizIndex() {
 		if (this.lvQuiz.getSelectionModel().getSelectedIndex() >= 0) {
-			this.editAlert(this.quiz, this.lvQuiz.getSelectionModel().getSelectedIndex(), this.quizSumTotal);		
+			this.editAlert(this.quiz, this.lvQuiz.getSelectionModel().getSelectedIndex(), this.quizSumTotal);
 		}
 	}
-	
+
 	@FXML
 	private void editExamIndex() {
 		if (this.lvExam.getSelectionModel().getSelectedIndex() >= 0) {
-			this.editAlert(this.exam, this.lvExam.getSelectionModel().getSelectedIndex(), this.examAvgTotal);		
+			this.editAlert(this.exam, this.lvExam.getSelectionModel().getSelectedIndex(), this.examAvgTotal);
 		}
 	}
-	
+
 	@FXML
 	private void editHomeworkIndex() {
 		if (this.lvHomework.getSelectionModel().getSelectedIndex() >= 0) {
-			this.editAlert(this.homework, this.lvHomework.getSelectionModel().getSelectedIndex(), this.HwDropLowAvg);		
+			this.editAlert(this.homework, this.lvHomework.getSelectionModel().getSelectedIndex(), this.HwDropLowAvg);
 		}
 	}
-	
+
 	private void editAlert(ObservableList acceptedOL, int indexGrade, CompositeGrade acceptedGrade) {
 		Alert edit = new Alert(AlertType.CONFIRMATION);
 		edit.setTitle("Edit input");
@@ -143,9 +130,9 @@ public class GUIController extends GridPane {
 		edit.setContentText("Choose your selection");
 		ButtonType editGrade = new ButtonType("Edit");
 		ButtonType deleteGrade = new ButtonType("Delete");
-		
+
 		edit.getButtonTypes().setAll(editGrade, deleteGrade);
-		
+
 		Optional<ButtonType> selection = edit.showAndWait();
 		if (selection.get() == editGrade) {
 			this.editGradeLV(acceptedOL, indexGrade, acceptedGrade);
@@ -153,58 +140,83 @@ public class GUIController extends GridPane {
 			this.deleteGradeLV(acceptedOL, indexGrade, acceptedGrade);
 		}
 	}
-	
-	private void editGradeLV(ObservableList acceptedOL, int indexGrade, CompositeGrade acceptedGrade) {
+
+	private void editGradeLV(ObservableList<Double> acceptedOL, int indexGrade, CompositeGrade acceptedGrade) {
 		TextInputDialog editGrade = new TextInputDialog("Quiz Grade in numeric form");
 		editGrade.setTitle("Change Quiz result");
 		editGrade.setHeaderText("Please insert a new Quiz Grade result");
 		editGrade.setContentText("To delete result press ok");
-		Optional<String> result = editGrade.showAndWait(); 
+		Optional<String> result = editGrade.showAndWait();
+		GradeCalculationStrategy tempStrategy = acceptedGrade.getStrategy();
+		System.out.println("Hey " + acceptedGrade + this.quizSumTotal);
 		if (result != null) {
 			Double quizAdded = this.getUserSelectedDouble(result.get());
+			acceptedOL.set(indexGrade, quizAdded);
 			if (quizAdded < 0) {
 				this.incorrectValueAlert();
-			} else {	
-				acceptedOL.set(indexGrade, quizAdded);
-				acceptedGrade.addAll(acceptedOL);
+			} else if (acceptedGrade == this.quizSumTotal) {
+				this.quizSumTotal = new CompositeGrade(tempStrategy);
+				for (int count = 0; count < acceptedOL.size(); count++) {
+					SimpleGrade temp = new SimpleGrade((Double) acceptedOL.get(count));
+					this.quizSumTotal.add(temp);
+				}
+				this.tf_QuizTotal.setText("" + this.quizSumTotal.getValue());
+			} else if (acceptedGrade == this.examAvgTotal) {
+				this.examAvgTotal = new CompositeGrade(tempStrategy);
+				for (int count = 0; count < acceptedOL.size(); count++) {
+					SimpleGrade temp = new SimpleGrade((Double) acceptedOL.get(count));
+					this.examAvgTotal.add(temp);
+				}
+				this.tf_ExamTotal.setText("" + this.examAvgTotal.getValue());
+			} else if (acceptedGrade == this.HwDropLowAvg) {
+				this.HwDropLowAvg = new CompositeGrade(tempStrategy);
+				for (int count = 0; count < acceptedOL.size(); count++) {
+					SimpleGrade temp = new SimpleGrade((Double) acceptedOL.get(count));
+					this.HwDropLowAvg.add(temp);
+				}
+				this.tf_HomeworkTotal.setText("" + this.HwDropLowAvg.getValue());
 			}
 		}
 	}
-	
+
 	private void deleteGradeLV(ObservableList acceptedOL, int indexGrade, CompositeGrade acceptedGrade) {
 		double removedGrade = (double) acceptedOL.get(indexGrade);
 		acceptedOL.remove(indexGrade);
 		acceptedOL.size();
+		this.updateGrade(acceptedOL, acceptedGrade);
+		Alert delete = new Alert(AlertType.INFORMATION);
+		delete.setTitle("deleted");
+		delete.setHeaderText("The Grade " + removedGrade + " has been deleted");
+		delete.showAndWait();
+
+	}
+
+	private void updateGrade(ObservableList acceptedOL, CompositeGrade acceptedGrade) {
 		GradeCalculationStrategy tempStrategy = acceptedGrade.getStrategy();
 		if (acceptedGrade == this.quizSumTotal) {
 			this.quizSumTotal = new CompositeGrade(tempStrategy);
 			for (int count = 0; count < acceptedOL.size(); count++) {
-				SimpleGrade temp = new SimpleGrade((Double)acceptedOL.get(count));
+				SimpleGrade temp = new SimpleGrade((Double) acceptedOL.get(count));
 				this.quizSumTotal.add(temp);
 			}
 			this.tf_QuizTotal.setText("" + this.quizSumTotal.getValue());
 		} else if (acceptedGrade == this.examAvgTotal) {
 			this.examAvgTotal = new CompositeGrade(tempStrategy);
 			for (int count = 0; count < acceptedOL.size(); count++) {
-				SimpleGrade temp = new SimpleGrade((Double)acceptedOL.get(count));
+				SimpleGrade temp = new SimpleGrade((Double) acceptedOL.get(count));
 				this.examAvgTotal.add(temp);
 			}
 			this.tf_ExamTotal.setText("" + this.examAvgTotal.getValue());
 		} else if (acceptedGrade == this.HwDropLowAvg) {
 			this.HwDropLowAvg = new CompositeGrade(tempStrategy);
 			for (int count = 0; count < acceptedOL.size(); count++) {
-				SimpleGrade temp = new SimpleGrade((Double)acceptedOL.get(count));
+				SimpleGrade temp = new SimpleGrade((Double) acceptedOL.get(count));
 				this.HwDropLowAvg.add(temp);
 			}
 			this.tf_HomeworkTotal.setText("" + this.HwDropLowAvg.getValue());
-		} 
-		Alert delete = new Alert(AlertType.INFORMATION);
-		delete.setTitle("deleted");
-		delete.setHeaderText("The Grade " + removedGrade + " has been deleted");	
-		delete.showAndWait();
-		
+		}
 	}
-	
+
 	@FXML
 	private void addQuizButton() {
 		double quizAdded;
