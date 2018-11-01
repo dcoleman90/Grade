@@ -97,27 +97,6 @@ public class GUIController extends GridPane {
 		} 
 	}
 
-	private void addQuiz(Grade gradeAdded) {
-		this.quiz.add(gradeAdded.getValue());
-		this.lvQuiz.setItems(this.quiz);
-		this.quizSumTotal.add(gradeAdded);
-		this.tf_QuizTotal.setText("" + this.quizSumTotal.getValue());
-	}
-
-	private void addExam(Grade gradeAdded) {
-		this.exam.add(gradeAdded.getValue());
-		this.lvExam.setItems(this.exam);
-		this.examAvgTotal.add(gradeAdded);
-		this.tf_ExamTotal.setText("" + this.examAvgTotal.getValue());
-	}
-
-	private void addHomework(Grade gradeAdded) {
-		this.homework.add(gradeAdded.getValue());
-		this.lvHomework.setItems(this.homework);
-		this.HwDropLowAvg.add(gradeAdded);
-		this.tf_HomeworkTotal.setText("" + this.HwDropLowAvg.getValue());
-	}
-
 	@FXML
 	private void editQuizIndex() {
 		if (this.lvQuiz.getSelectionModel().getSelectedIndex() >= 0) {
@@ -164,7 +143,6 @@ public class GUIController extends GridPane {
 		editGrade.setContentText("To delete result press ok");
 		Optional<String> result = editGrade.showAndWait();
 		GradeCalculationStrategy tempStrategy = acceptedGrade.getStrategy();
-		System.out.println("Hey " + acceptedGrade + this.quizSumTotal);
 		if (result != null) {
 			Double quizAdded = this.getUserSelectedDouble(result.get());
 			acceptedOL.set(indexGrade, quizAdded);
@@ -293,7 +271,6 @@ public class GUIController extends GridPane {
 		SimpleGrade grade = new SimpleGrade(gradeAdded);
 		CompositeGrade composite = new CompositeGrade(strategy);
 		composite.add(grade);
-		System.out.println("2 " + composite.getValue());
 		return composite;
 	}
 
@@ -313,6 +290,5 @@ public class GUIController extends GridPane {
 		alert.setHeaderText("All Added Grades must be in numeric form");
 		alert.setContentText("Values cannot be negitive numbers");
 		alert.showAndWait();
-
 	}
 }
