@@ -40,21 +40,21 @@
          <tooltip>
             <Tooltip text="This button allows the user to add an Exam value" />
          </tooltip></Button>
-      <ListView fx:id="lvHomework" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <ListView fx:id="lvHomework" editable="true" onMouseClicked="#editHomeworkIndex" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="15.0" top="15.0" />
          </GridPane.margin>
          <tooltip>
             <Tooltip text="This field shows all the Homework values" />
          </tooltip></ListView>
-      <ListView fx:id="lvQuiz" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <ListView fx:id="lvQuiz" editable="true" onMouseClicked="#editQuizIndex" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </GridPane.margin>
          <tooltip>
             <Tooltip text="This field shows all the Quiz values" />
          </tooltip></ListView>
-      <ListView fx:id="lvExam" accessibleText="This field shows the Exam values" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+      <ListView fx:id="lvExam" accessibleText="This field shows the Exam values" editable="true" onMouseClicked="#editExamIndex" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </GridPane.margin>
@@ -75,7 +75,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="examTotal" editable="false" maxHeight="200.0">
+            <TextField fx:id="tf_ExamTotal" editable="false" maxHeight="200.0">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>
@@ -92,7 +92,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="homeworkTotal" editable="false">
+            <TextField fx:id="tf_HomeworkTotal" editable="false">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
@@ -109,7 +109,7 @@
                   <Insets left="10.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="quizTotal" editable="false">
+            <TextField fx:id="tf_QuizTotal" editable="false">
                <VBox.margin>
                   <Insets left="15.0" right="15.0" />
                </VBox.margin>

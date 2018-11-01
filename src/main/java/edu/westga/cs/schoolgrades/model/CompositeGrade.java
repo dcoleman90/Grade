@@ -77,5 +77,9 @@ public class CompositeGrade implements Grade {
 			this.add(grade);
 		}
 	}
+	
+	public GradeCalculationStrategy getStrategy() {
+		return this.strategy;
+	}
 
 }
