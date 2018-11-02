@@ -74,6 +74,9 @@
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
             </Label>
             <TextField fx:id="tf_ExamTotal" editable="false" maxHeight="200.0">
                <VBox.margin>
@@ -108,6 +111,9 @@
                <VBox.margin>
                   <Insets left="10.0" />
                </VBox.margin>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
             </Label>
             <TextField fx:id="tf_QuizTotal" editable="false">
                <VBox.margin>
@@ -151,7 +157,7 @@
       </GridPane>
       <Label text="Quiz Grades">
          <GridPane.margin>
-            <Insets left="10.0" top="5.0" />
+            <Insets left="15.0" top="5.0" />
          </GridPane.margin>
       </Label>
       <Label text="Homework Grades" GridPane.columnIndex="1">
@@ -159,6 +165,9 @@
             <Insets left="10.0" />
          </GridPane.margin>
       </Label>
-      <Label text="Exam Grades" GridPane.columnIndex="2" />
+      <Label text="Exam Grades" GridPane.columnIndex="2">
+         <GridPane.margin>
+            <Insets left="15.0" />
+         </GridPane.margin></Label>
    </children>
 </GridPane>
