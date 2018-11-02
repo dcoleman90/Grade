@@ -22,6 +22,13 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
 
+
+/**
+ * This is the GUI controller which insures everything is in the view is set up and runs correctly
+ * @author Drew Coleman
+ * @version 10/27/2018
+ *
+ */
 public class GUIController extends GridPane {
 	@FXML
 	private ListView<Double> lvQuiz;
