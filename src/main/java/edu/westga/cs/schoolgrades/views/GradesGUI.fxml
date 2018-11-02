@@ -25,7 +25,7 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addQuizButton" onMouseClicked="#addQuizButton" text="Add Quiz" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#addQuizButton" onMouseClicked="#addQuizButton" text="Add Quiz" textAlignment="CENTER" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="15.0" />
          </GridPane.margin>
@@ -33,7 +33,7 @@
             <Tooltip text="This button allows the user to add a Quiz value" />
          </tooltip>
       </Button>
-      <Button mnemonicParsing="false" onAction="#addExamButton" text="Add Exam" GridPane.rowIndex="3">
+      <Button mnemonicParsing="false" onAction="#addExamButton" text="Add Exam" GridPane.columnIndex="2" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="15.0" />
          </GridPane.margin>
@@ -47,14 +47,14 @@
          <tooltip>
             <Tooltip text="This field shows all the Homework values" />
          </tooltip></ListView>
-      <ListView fx:id="lvQuiz" editable="true" onMouseClicked="#editQuizIndex" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <ListView fx:id="lvQuiz" editable="true" onMouseClicked="#editQuizIndex" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </GridPane.margin>
          <tooltip>
             <Tooltip text="This field shows all the Quiz values" />
          </tooltip></ListView>
-      <ListView fx:id="lvExam" accessibleText="This field shows the Exam values" editable="true" onMouseClicked="#editExamIndex" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+      <ListView fx:id="lvExam" accessibleText="This field shows the Exam values" editable="true" onMouseClicked="#editExamIndex" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </GridPane.margin>
@@ -68,7 +68,7 @@
          <tooltip>
             <Tooltip text="This button allows the user to add a Homework value" />
          </tooltip></Button>
-      <VBox maxHeight="100.0" prefHeight="50.0" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+      <VBox maxHeight="100.0" prefHeight="50.0" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
          <children>
             <Label text="Exam Total">
                <VBox.margin>
@@ -102,7 +102,7 @@
             </TextField>
          </children>
       </VBox>
-      <VBox prefHeight="50.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <VBox prefHeight="50.0" GridPane.rowIndex="2">
          <children>
             <Label text="Quiz Total">
                <VBox.margin>
@@ -127,7 +127,7 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Total Grade">
@@ -149,5 +149,16 @@
             </VBox>
          </children>
       </GridPane>
+      <Label text="Quiz Grades">
+         <GridPane.margin>
+            <Insets left="10.0" top="5.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Homework Grades" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="Exam Grades" GridPane.columnIndex="2" />
    </children>
 </GridPane>
